@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClinicalMind — AI Clinical Summarization</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN 1 — LANGUAGE SELECTION
+════════════════════════════════════════════════════════════════ -->
+<div id="langScreen" class="lang-screen">
+  <div class="lang-screen__inner">
+
+    <div class="lang-glow lang-glow--1"></div>
+    <div class="lang-glow lang-glow--2"></div>
+
+    <!-- Logo -->
+    <div class="lang-brand">
+      <div class="lang-brand__icon">
+        <svg width="52" height="52" viewBox="0 0 52 52" fill="none">
+          <rect width="52" height="52" rx="16" fill="#16B1A7"/>
+          <path d="M26 12v28M12 26h28" stroke="#fff" stroke-width="4.5" stroke-linecap="round"/>
+          <circle cx="26" cy="26" r="7" fill="#fff" opacity=".25"/>
+        </svg>
+      </div>
+      <div>
+        <h1 class="lang-brand__name">ClinicalMind</h1>
+        <p class="lang-brand__tag">Hospital AI Platform</p>
+      </div>
+    </div>
+
+    <!-- Prompt -->
+    <div class="lang-prompt-wrap">
+      <p class="lang-prompt-en">Select your preferred language</p>
+      <p class="lang-prompt-hi">अपनी भाषा चुनें</p>
+    </div>
+
+    <!-- Language cards -->
+    <div class="lang-cards">
+      <button class="lang-card" onclick="selectLang('en')">
+        <div class="lang-card__icon">🇬🇧</div>
+        <div class="lang-card__body">
+          <span class="lang-card__name">English</span>
+          <span class="lang-card__sub">Continue in English</span>
+        </div>
+        <div class="lang-card__arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </button>
+
+      <button class="lang-card" onclick="selectLang('hi')">
+        <div class="lang-card__icon">🇮🇳</div>
+        <div class="lang-card__body">
+          <span class="lang-card__name">हिं-English &nbsp;<span class="lang-card__badge">Hinglish</span></span>
+          <span class="lang-card__sub">Hinglish mein jaari rakhein</span>
+        </div>
+        <div class="lang-card__arrow">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <path d="M7.5 5l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </button>
+    </div>
+
+    <!-- Trust row -->
+    <!-- <div class="lang-trust">
+      <span>HIPAA Compliant</span>
+      <span class="lang-trust__dot"></span>
+      <span>Hospital Grade AI</span>
+      <span class="lang-trust__dot"></span>
+      <span>256-bit Encrypted</span>
+    </div> -->
+
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SCREEN 2 — MAIN APP
+════════════════════════════════════════════════════════════════ -->
+<div id="appScreen" class="app-screen hidden">
+
+  <!-- ── HEADER ──────────────────────────────────────────────── -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo-group">
+        <div class="logo-icon">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+            <rect width="38" height="38" rx="11" fill="#16B1A7"/>
+            <path d="M19 8v22M8 19h22" stroke="#fff" stroke-width="3.8" stroke-linecap="round"/>
+            <circle cx="19" cy="19" r="6" fill="#fff" opacity=".2"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="logo-text">ClinicalMind</h1>
+          <p class="logo-sub" data-key="tagline">Hospital AI Platform</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <button class="lang-switch" id="langSwitchBtn" onclick="goToLangScreen()" title="Change language">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.4"/>
+            <path d="M8 1.5C6 4 5 6 5 8s1 4 3 6.5M8 1.5C10 4 11 6 11 8s-1 4-3 6.5M1.5 8h13" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+          </svg>
+          <span id="langSwitchLabel">EN</span>
+        </button>
+        <!-- <div class="header-verified">
+          <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+            <path d="M7.5 1.5l1.6 3.2 3.5.5-2.5 2.5.6 3.5-3.2-1.7-3.2 1.7.6-3.5L2.4 5.2l3.5-.5z" fill="#16B1A7"/>
+          </svg>
+          <span data-key="verifiedLabel">Verified AI</span>
+        </div> -->
+      </div>
+    </div>
+  </header>
+
+  <!-- ── TRUST RIBBON ───────────────────────────────────────────
+  <div class="trust-ribbon">
+    <div class="trust-ribbon__inner">
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M7 1l1.5 3.1L12 5l-2.5 2.4.5 3.4L7 9.3 4 10.8l.5-3.4L2 5l3.5-.9z" fill="currentColor"/>
+        </svg>
+        <span data-key="trust1">HIPAA Compliant</span>
+      </div>
+      <span class="trust-sep"></span>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M4.5 7l1.8 1.8L9.5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span data-key="trust2">Clinically Validated</span>
+      </div>
+      <span class="trust-sep"></span>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <rect x="2" y="5" width="10" height="7.5" rx="1.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M4.5 5V4a2.5 2.5 0 015 0v1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span data-key="trust3">256-bit Encrypted</span>
+      </div>
+      <span class="trust-sep"></span>
+      <div class="trust-item">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <circle cx="7" cy="7" r="5.5" stroke="currentColor" stroke-width="1.4"/>
+          <path d="M7 4v3.5l2.5 1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        </svg>
+        <span data-key="trust4">Results in Seconds</span>
+      </div>
+    </div>
+  </div> -->
+
+  <!-- ── MAIN ─────────────────────────────────────────────────── -->
+  <main class="app-main">
+    <div class="container">
+
+      <!-- Page heading -->
+      <div class="page-heading">
+        <h2 class="page-title" data-key="heroTitle">Get Your AI Clinical Summary</h2>
+        <p class="page-subtitle" data-key="heroSub">Upload a medical image and describe your case — our AI generates a comprehensive clinical summary instantly.</p>
+      </div>
+
+      <!-- ── FORM CARD ───────────────────────────────────────── -->
+      <div class="form-card">
+        <div class="form-grid">
+
+          <!-- LEFT: Image upload -->
+          <div class="form-panel">
+            <div class="panel-header">
+              <div class="panel-icon panel-icon--blue">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <rect x="1.5" y="5" width="15" height="11" rx="2" stroke="currentColor" stroke-width="1.6"/>
+                  <circle cx="6.5" cy="9.5" r="1.8" stroke="currentColor" stroke-width="1.6"/>
+                  <path d="M1.5 13l4.5-4 3 2.5 3-2.5 5 4" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                  <path d="M9 2v6M7 4l2-2 2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <span class="panel-label" data-key="uploadLabel">Medical Image</span>
+              <span class="panel-optional" data-key="optionalTag">Optional</span>
+            </div>
+
+            <div class="drop-zone" id="dropZone">
+              <div class="drop-inner" id="dropInner">
+                <div class="drop-icon-circle">
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <rect x="3" y="9" width="26" height="18" rx="2.5" stroke="#16B1A7" stroke-width="1.8"/>
+                    <circle cx="11" cy="16" r="2.5" stroke="#16B1A7" stroke-width="1.8"/>
+                    <path d="M3 22l7-6 5 4 5-4 9 7" stroke="#16B1A7" stroke-width="1.8" stroke-linejoin="round"/>
+                    <path d="M16 3v8M13 6l3-3 3 3" stroke="#16B1A7" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+                <p class="drop-title" data-key="dropTitle">Drag & drop image here</p>
+                <p class="drop-or">or <button class="drop-browse-btn" id="dropLink" data-key="browseBtn">browse files</button></p>
+                <p class="drop-formats">PNG &nbsp;·&nbsp; JPG &nbsp;·&nbsp; JPEG &nbsp;·&nbsp; WEBP</p>
+              </div>
+              <img id="imagePreview" class="img-preview hidden" alt="Preview" />
+              <button class="img-remove hidden" id="removeImg">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+            <input type="file" id="fileInput" accept="image/*" class="hidden" />
+          </div>
+
+          <!-- RIGHT: Question -->
+          <div class="form-panel">
+            <div class="panel-header">
+              <div class="panel-icon panel-icon--teal">
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                  <circle cx="9" cy="8.5" r="6" stroke="currentColor" stroke-width="1.6"/>
+                  <path d="M9 11.5v.5M9 5.5a2 2 0 010 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <label class="panel-label" for="questionInput" data-key="questionLabel">Clinical Question</label>
+              <span class="panel-required">*</span>
+            </div>
+            <textarea
+              id="questionInput"
+              class="question-textarea"
+              rows="9"
+              data-placeholder-key="questionPlaceholder"
+              placeholder="Describe your symptoms or ask a medical question..."
+            ></textarea>
+            <div class="char-row">
+              <span id="charCount">0</span>&nbsp;<span data-key="charLabel">characters</span>
+            </div>
+          </div>
+
+        </div><!-- /form-grid -->
+
+        <!-- CTA row -->
+        <div class="cta-row">
+          <button class="btn-cta" id="analyzeBtn" onclick="handleAnalyze()">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M10 6.5v3.8l2.8 1.7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </svg>
+            <span data-key="btnCta">Get AI Summary</span>
+          </button>
+          <p class="cta-note" data-key="ctaNote">Your data is processed securely and never stored.</p>
+        </div>
+
+      </div><!-- /form-card -->
+
+
+      <!-- ── RESULTS AREA ────────────────────────────────────── -->
+      <div id="resultsArea" class="hidden">
+
+        <!-- Loading state -->
+        <div id="loadingCard" class="loading-card hidden">
+          <div class="loading-rings">
+            <div class="ring ring-1"></div>
+            <div class="ring ring-2"></div>
+            <div class="ring-core">
+              <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+                <rect width="26" height="26" rx="8" fill="#16B1A7"/>
+                <path d="M13 5v10M8 10h5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                <path d="M7 17h12" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".5"/>
+              </svg>
+            </div>
+          </div>
+          <p class="loading-title" data-key="loadingTitle">Analyzing Your Case</p>
+          <p class="loading-sub" data-key="loadingSub">Our AI is generating your clinical summary…</p>
+        </div>
+
+        <!-- Error state -->
+        <div id="errorCard" class="error-card hidden">
+          <div class="error-icon">
+            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
+              <circle cx="13" cy="13" r="10" stroke="currentColor" stroke-width="2"/>
+              <path d="M13 8v6M13 16.5v1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <p class="error-text" id="errorMsg"></p>
+          <button class="error-dismiss" onclick="hideError()" data-key="dismissBtn">Dismiss</button>
+        </div>
+
+        <!-- Summary result -->
+        <div id="summaryCard" class="summary-card hidden">
+          <div class="summary-header">
+            <div class="summary-header__left">
+              <div class="ai-badge">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 1l1.5 3.1L12 5l-2.5 2.4.5 3.4L7 9.3 4 10.8l.5-3.4L2 5l3.5-.9z" fill="currentColor"/>
+                </svg>
+                AI
+              </div>
+              <h3 class="summary-title" data-key="resultTitle">AI Clinical Summary</h3>
+            </div>
+            <div class="summary-header__right">
+              <span class="time-chip" id="timeChip"></span>
+              <button class="copy-btn" id="copyBtn" onclick="copySummary()">
+                <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+                  <rect x="4.5" y="4.5" width="8.5" height="8.5" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M2.5 10.5V2.5a1 1 0 011-1h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+                <span id="copyLabel" data-key="copyBtn">Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="summary-body">
+            <p class="summary-text" id="summaryText"></p>
+          </div>
+
+          <div class="summary-footer">
+            <button class="btn-new" onclick="resetForm()">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M3 8A5 5 0 1012.9 7M13 3v4h-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span data-key="newQueryBtn">New Query</span>
+            </button>
+            <p class="disclaimer" data-key="disclaimer">For informational purposes only. Always consult a qualified healthcare professional.</p>
+          </div>
+        </div>
+
+      </div><!-- /resultsArea -->
+
+    </div><!-- /container -->
+  </main>
+
+  <!-- ── FOOTER ──────────────────────────────────────────────── -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
+          <rect width="22" height="22" rx="7" fill="#16B1A7" opacity=".2"/>
+          <path d="M11 4.5v13M4.5 11h13" stroke="#16B1A7" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <span class="footer-brand__name">ClinicalMind</span>
+      </div>
+      <p class="footer-copy" data-key="footerCopy">© 2024 ClinicalMind · AI-powered clinical decision support</p>
+      <div class="footer-links">
+        <a href="#" data-key="footerPrivacy">Privacy Policy</a>
+        <span class="footer-dot">·</span>
+        <a href="#" data-key="footerTerms">Terms of Use</a>
+        <span class="footer-dot">·</span>
+        <a href="#" data-key="footerSupport">Support</a>
+      </div>
+    </div>
+  </footer>
+
+</div><!-- /appScreen -->
+
+<script src="/app.js"></script>
+</body>
+</html>
