@@ -1,3 +1,13 @@
+---
+title: ClinicalMind
+emoji: 🏥
+colorFrom: blue
+colorTo: teal
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # ClinicalMind — AI Clinical Summarization
 
 A commercial hospital-grade web application that generates AI-powered clinical summaries from medical images and natural language questions. Built on the **EI-Summ** multimodal model (ACL 2024 — *"From Sights to Insights"*).
