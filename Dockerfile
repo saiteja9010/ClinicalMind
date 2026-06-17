@@ -27,8 +27,13 @@ RUN pip install --no-cache-dir \
     numpy==1.26.4 \
     python-dotenv==1.0.1
 
-# Copy weights and app code
-COPY weights/ ./weights/
+# Download EISumm MMCQS weight from HF Hub at build time (cached as Docker layer)
+RUN python -c "\
+from huggingface_hub import snapshot_download; \
+snapshot_download('Teja1409/ClinicalMind-weights', local_dir='weights'); \
+print('Weights ready')"
+
+# Copy app code last (changes most often - keeps weight layer cached)
 COPY backend/ ./backend/
 COPY frontend/ ./frontend/
 
