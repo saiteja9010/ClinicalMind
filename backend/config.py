@@ -38,7 +38,7 @@ MODEL_PATHS: dict[str, dict[str, str | None]] = {
         "MMCQS": str(END_SEM_DIR / "MMCQS_M2_SimpleImageSumm" / "best.pt"),
     },
     "EISumm": {
-        "MMQS":  None,
+        "MMQS":  str(WEIGHTS_DIR / "MMQS_M3_EISumm"  / "best.pt"),
         "MMCQS": str(WEIGHTS_DIR / "MMCQS_M3_EISumm" / "best.pt"),
     },
     "EDISumm": {
