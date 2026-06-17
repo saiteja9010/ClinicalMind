@@ -12,9 +12,9 @@ build/
 venv/
 env/
 
-# Model weights — all .pt files ignored EXCEPT EISumm in weights/
+# Model weights — only MMCQS EISumm weight is tracked (fits HF 1 GB LFS limit)
 *.pt
-!weights/**/*.pt
+!weights/MMCQS_M3_EISumm/best.pt
 
 # Logs & server output
 server_stdout.txt
